@@ -39,7 +39,7 @@ npm install pinecone-router-middleware-views
 ```javascript
 // load this middleware
 import 'pinecone-router-middleware-views';
-// then load alpinejs router
+// then load pinecone router
 import 'pinecone-router';
 ```
 
@@ -47,7 +47,72 @@ import 'pinecone-router';
 
 ## Usage
 
-Usage information.
+1. add `x-views` attribute to the Pinecone Router element.
+    - optionally set its value to the selector for where to show the view's content,
+    - **leaving it empty will default to `#content`**
+2. add `x-view` to _each route_ with the value being the path to view.
+
+That's it!
+
+**example:**
+
+```html
+<div x-data x-router x-views="#content">
+	<template x-route="/" x-view="/home.html"></template>
+	<template x-route="/hello/:name" x-view="/hello.html"></template>
+	<template x-route="notfound" x-view="/404.html"></template>
+</div>
+
+<div id="content">this will be replaced by the content of the views.</div>
+```
+
+> **Notes:** :
+
+-   Routes can share views.
+-   View are simply html files, can be text files too.
+-   A view is **required** for each route.
+-   You can set the selector by setting it as the value of `x-views` attribute.
+    **leaving it empty will default to '#content'**
+-   You can also handle routes while using views
+-   -   **Note**: The routes will be handled _before_ the page is rendered.
+
+### Authorization
+
+If you'd like to make checks before actually displaying a view, using authentication/authorization etc, you can make your checks in the _handler_. Then within the handler, if you need to redirect the user to another page simply `return context.redirect('/another/page')` this way it'll prevent the views from rendering and go to the other page directly.
+
+**Example:**
+
+The route you'd like to authorize:
+In this example the user will only be allowed to edit their own profile
+
+```html
+<div x-data="router()" x-router x-views>
+	...
+	<template
+		x-route="/profile/:username/edit"
+		x-handler="editprofile"
+		x-view="/editprofile.html"
+	></template>
+	<template x-route="/unauthorized" x-view="/unauthorized.html"></template>
+	...
+</div>
+```
+
+The handler: (`auth` is a placeholder name, replace it with your own auth provider methods)
+
+```js
+editprofile(context) {
+	if (context.props.username != auth.username) {
+		return context.redirect('/unauthorized');
+	}
+}
+```
+
+> **Tip!** To access the current context (props etc) from within the views, use the [$router Magic Helper](https://github.com/pinecone-router/router/#magic-helper) from an Alpine component or `window.PineconeRouter.currentContext` from Javascript.
+
+> **Important**: Make sure the view don't have an Alpine Router component in them! Keep the router component outside of the specified selector.
+>
+> Can't use `body` as the selector to avoid that issue.
 
 ## Supported versions
 

@@ -9,7 +9,7 @@ const PineconeRouterMiddleware = {
 	/**
 	 * @property {string} name the name of the middleware.
 	 */
-	name: 'views',
+	name: 'x-views',
 
 	/**
 	 * @type {object}
