@@ -1,7 +1,7 @@
 # Contributing
 
-Thanks for considering to contribute to Pinecone Router {middleware-name} Middleware !
+Thanks for considering to contribute to Pinecone Router views Middleware !
 
-Please open [issues](https://github.com/{repository}/issues) or [discussions](https://github.com/{repository}/discussions) about any problems, suggestions, questions you have!
+Please open [issues](https://github.com/pinecone-router/middleware-views/issues) or [discussions](https://github.com/pinecone-router/middleware-views/discussions) about any problems, suggestions, questions you have!
 
 Pull requests welcome :)
