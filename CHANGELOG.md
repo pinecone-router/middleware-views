@@ -7,12 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-
-## [0.0.1] - 2021-05-01
+## [0.0.1] - 2021-05-1
 
 ### Fixed
 
--   removed broken version check
+-   removed broken version check.
 
 ## [0.0.0] - 2021-05-01
 
@@ -20,6 +19,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -	first version as a separate middleware
 
-[unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.0.1...HEAD
-[0.0.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.0.0...HEAD
-[0.0.1]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.0.0...HEAD
+[unreleased]: https://github.com/pinecone-router/middleware-views/compare/v0.0.0...HEAD
+[0.0.0]: https://github.com/pinecone-router/middleware-views/compare/v0.0.0...v0.0.0
+[0.0.1]: https://github.com/pinecone-router/middleware-views/compare/v0.0.0...v0.0.1
