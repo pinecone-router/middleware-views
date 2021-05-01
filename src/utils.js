@@ -4,7 +4,7 @@
  * @param {string} content the html content.
  * @param {string} selector the selector of where to put the content.
  */
- export function renderContent(content, selector) {
+export function renderContent(content, selector) {
 	// replace the content of the selector with the fetched content
 	document.querySelector(selector).innerHTML = content;
 }
