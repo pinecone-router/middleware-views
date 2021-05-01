@@ -38,12 +38,6 @@ const PineconeRouterMiddleware = {
 	 * @param {object} component the router's alpine component.
 	 */
 	init(component) {
-		if (this.version !== window.PineconeRouter.version) {
-			throw new Error(
-				`Pinecone Router ${this.name}: This middleware was built for Pinecone Router v${this.version}, found v${window.PineconeRouter.version}`
-			);
-		}
-
 		if (
 			window.PineconeRouterMiddlewares.find(
 				(m) => m.name == 'x-render'
