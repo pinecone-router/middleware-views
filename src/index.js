@@ -4,7 +4,7 @@ const PineconeRouterMiddleware = {
 	/**
 	 * @property {string} version the version of Pinecone Router this middleware is made for.
 	 */
-	version: '0.1.0',
+	version: '0.0.0',
 
 	/**
 	 * @property {string} name the name of the middleware.
