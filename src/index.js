@@ -105,8 +105,8 @@ const PineconeRouterMiddleware = {
 	 * @param {object} route the matched route, null if not found.
 	 * @param {string} _path the path visited by the client
 	 * @param {boolean} _firstload first page load and not link navigation request
-	 * @param {boolean} notfound set to true if the route wasnt found
-	 * @returns {boolean} false to make the navigate function exit (make sure to send the loadend event); none to continute execution.
+	 * @param {boolean} notfound set to true if the route wasn't found
+	 * @returns {boolean} false to make the navigate function exit (make sure to send the loadend event); none to continue execution.
 	 */
 	onHandlersExecuted(route, _path, _firstload, notfound) {
 		if (this.settings.enabled) {
