@@ -38,5 +38,8 @@
 		"jest": "^26.6.3",
 		"jsdom-simulant": "^1.1.2",
 		"microbundle": "^0.13.0"
+	},
+	"dependencies": {
+		"pinecone-router": "^0.1.1"
 	}
 }
