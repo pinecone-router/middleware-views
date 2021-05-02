@@ -4,7 +4,7 @@ const PineconeRouterMiddleware = {
 	/**
 	 * @property {string} version the version of Pinecone Router this middleware is made for.
 	 */
-	version: '0.0.1',
+	version: '0.0.2',
 
 	/**
 	 * @property {string} name the name of the middleware.
@@ -64,14 +64,14 @@ const PineconeRouterMiddleware = {
 			}
 
 			// this will disable notfound handling in favor of 404 view
-			// this can be ovewritten if needed by making a notfound route with a handler
+			// this can be overwritten if needed by making a notfound route with a handler
 			window.PineconeRouter.notfound = null;
 			window.PineconeRouter.settings.allowNoHandler = true;
 		}
 	},
 
 	/**
-	 * Called for each route during initalization,
+	 * Called for each route during initialization,
 	 * before the route is processed & added.
 	 * @param {Element} el the route's <template> element
 	 * @param {object} _component the router's alpine component
@@ -100,13 +100,6 @@ const PineconeRouterMiddleware = {
 	},
 
 	/**
-	 * This will be called during PineconeRouter.interceptLinks() function
-	 * after the link is checked as a valid navigation link.
-	 * @param {Element} _el the anchor element
-	 */
-	onLinkIntercepted(_el) {},
-
-	/**
 	 * Will be called after the handlers are executed and done.
 	 * during navigation inside PineconeRouter.navigate().
 	 * @param {object} route the matched route, null if not found.
@@ -128,7 +121,6 @@ const PineconeRouterMiddleware = {
 				})
 				.then((response) => {
 					renderContent(response, this.settings.selector);
-					window.PineconeRouter.interceptLinks();
 					window.dispatchEvent(window.PineconeRouter.loadend);
 					return false;
 				});
