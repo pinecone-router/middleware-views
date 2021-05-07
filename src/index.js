@@ -4,12 +4,12 @@ const PineconeRouterMiddleware = {
 	/**
 	 * @property {string} version the version of Pinecone Router this middleware is made for.
 	 */
-	version: '0.0.2',
+	version: '0.0.3',
 
 	/**
 	 * @property {string} name the name of the middleware.
 	 */
-	name: 'x-views',
+	name: 'views',
 
 	/**
 	 * @type {object}
@@ -22,9 +22,9 @@ const PineconeRouterMiddleware = {
 	 * @property {object} settings the middleware settings.
 	 */
 	settings: {
-		enabled: false,
-		basepath: '/',
-		selector: '#content',
+		enable: false,
+		basePath: '/',
+		selector: '#app',
 		/**
 		 * @type {string}
 		 * @summary the 404 view
@@ -33,41 +33,42 @@ const PineconeRouterMiddleware = {
 	},
 
 	/**
+	 * @event pinecone-start
+	 * @summary be dispatched to the window after before page start loading.
+	 */
+	loadStart: new Event('pinecone-start'),
+
+	/**
+	 * @event pinecone-end
+	 * @summary will be dispatched to the window after the views are fetched
+	 */
+	loadEnd: new Event('pinecone-end'),
+
+	/**
 	 * This will be called at router initialization.
 	 * used for detecting router settings.
 	 * @param {object} component the router's alpine component.
 	 */
-	init(component) {
-		if (
-			window.PineconeRouterMiddlewares.find(
-				(m) => m.name == 'x-render'
-			) != null
-		) {
+	init(_component, settings) {
+		if (settings?.middlewares?.render) {
 			throw new Error(
-				`Pinecone Router ${this.name}: Cannot use x-views along with x-render.`
+				`Pinecone Router ${this.name}: Cannot use views middleware along with render.`
 			);
 		}
 
-		// views rendering, unlike page rendering
-		// they wont be loaded automatically using path
-		// instead the user decide the view using x-view for each route
-		if (component.$el.hasAttribute('x-views')) {
-			this.settings.enabled = true;
-			// check if the selector was set, else default to 'body'
-			let selector = component.$el.getAttribute('x-views');
-			if (selector == 'body') {
-				throw new Error(
-					`Pinecone Router ${this.name}: Do not use body as the selector, it will cause the router component to be removed`
-				);
-			} else if (selector != '') {
-				this.settings.selector = selector;
-			}
+		//load settings
+		this.settings = {
+			...this.settings,
+			...(settings?.middlewares?.[this.name] ?? {}),
+		};
 
-			// this will disable notfound handling in favor of 404 view
-			// this can be overwritten if needed by making a notfound route with a handler
-			window.PineconeRouter.notfound = null;
-			window.PineconeRouter.settings.allowNoHandler = true;
+		if (this.settings?.selector == 'body') {
+			throw new Error(
+				`Pinecone Router ${this.name}: Do not use body as the selector, it will cause the router component to be removed`
+			);
 		}
+
+		window.PineconeRouter.settings.allowNoHandler = true;
 	},
 
 	/**
@@ -78,7 +79,7 @@ const PineconeRouterMiddleware = {
 	 * @param {string} path the route's path
 	 */
 	onBeforeRouteProcessed(el, _component, path) {
-		if (this.settings.enabled) {
+		if (this.settings.enable) {
 			// TODO: try to set the view using `href` attribute
 			// to see if Vite detects it and transform the url on build
 			if (el.hasAttribute('x-view') == false) {
@@ -87,8 +88,8 @@ const PineconeRouterMiddleware = {
 				);
 			}
 			let view = el.getAttribute('x-view');
-			if (this.settings.basepath != '/') {
-				view = this.settings.basepath + view;
+			if (this.settings.basePath != '/') {
+				view = this.settings.basePath + view;
 			}
 
 			if (path == 'notfound') {
@@ -106,10 +107,10 @@ const PineconeRouterMiddleware = {
 	 * @param {string} _path the path visited by the client
 	 * @param {boolean} _firstload first page load and not link navigation request
 	 * @param {boolean} notfound set to true if the route wasn't found
-	 * @returns {boolean} false to make the navigate function exit (make sure to send the loadend event); none to continue execution.
+	 * @returns {boolean} false to make the navigate function exit (make sure to send the loadEnd event); none to continue execution.
 	 */
 	onHandlersExecuted(route, _path, _firstload, notfound) {
-		if (this.settings.enabled) {
+		if (this.settings.enable) {
 			let view = notfound
 				? this.settings.notfound
 				: this.views[route.path];
@@ -121,10 +122,24 @@ const PineconeRouterMiddleware = {
 				})
 				.then((response) => {
 					renderContent(response, this.settings.selector);
-					window.dispatchEvent(window.PineconeRouter.loadend);
+					window.dispatchEvent(this.loadEnd);
 					return false;
+				})
+				.catch((error) => {
+					document
+						.querySelector('[x-router][x-data]')
+						.dispatchEvent(
+							new CustomEvent('fetch-error', { detail: error })
+						);
+					console.error(
+						`Pinecone Router ${this.name}: Fetch Error: ${error}`
+					);
 				});
 		}
+	},
+
+	onBeforeHandlersExecuted(_route, _path, _firstLoad, _notFound) {
+		window.dispatchEvent(this.loadStart);
 	},
 };
 

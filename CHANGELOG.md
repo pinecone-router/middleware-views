@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.3] - 2021-05-07
+
+## Changed
+
+-   support for Pinecone Router v3.0
+
+## Removed
+
+-   removed `x-views` in favor of Pinecone Settings.
+
 ## [0.0.2] - 2021-05-02
 
 ## Removed
