@@ -103,15 +103,14 @@ const PineconeRouterMiddleware = {
 	/**
 	 * Will be called after the handlers are executed and done.
 	 * during navigation inside PineconeRouter.navigate().
-	 * @param {object} route the matched route, null if not found.
+	 * @param {object} route the matched route, undefined if not found.
 	 * @param {string} _path the path visited by the client
 	 * @param {boolean} _firstload first page load and not link navigation request
-	 * @param {boolean} notfound set to true if the route wasn't found
 	 * @returns {boolean} false to make the navigate function exit (make sure to send the loadEnd event); none to continue execution.
 	 */
-	onHandlersExecuted(route, _path, _firstload, notfound) {
+	onHandlersExecuted(route, _path, _firstload) {
 		if (this.settings.enable) {
-			let view = notfound
+			let view = !route
 				? this.settings.notfound
 				: this.views[route.path];
 
@@ -138,7 +137,7 @@ const PineconeRouterMiddleware = {
 		}
 	},
 
-	onBeforeHandlersExecuted(_route, _path, _firstLoad, _notFound) {
+	onBeforeHandlersExecuted(_route, _path, _firstLoad) {
 		window.dispatchEvent(this.loadStart);
 	},
 };
