@@ -1,1 +1,4 @@
 theme: jekyll-theme-minimal
+title: Views Middleware for Pinecone Router
+description: Fetch and render views easily with Pinecone Router
+logo: https://github.com/pinecone-router/router/blob/main/.github/pinecone-router-icon-dark.png?raw=true
