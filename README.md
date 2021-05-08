@@ -166,7 +166,7 @@ The first two can be used to show a loading bar or indicator
 
 **Loading bar Example:**
 
-Using [NProgress](http://ricostacruz.com/nprogress) (Recommended):
+Using [nProgress](http://ricostacruz.com/nprogress) (Recommended):
 
 ```js
 window.addEventListener('pinecone-start', () => nProgress.start())

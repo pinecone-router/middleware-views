@@ -110,10 +110,7 @@ const PineconeRouterMiddleware = {
 	 */
 	onHandlersExecuted(route, _path, _firstload) {
 		if (this.settings.enable) {
-			let view = !route
-				? this.settings.notfound
-				: this.views[route.path];
-
+			let view = !route ? this.settings.notfound : this.views[route.path];
 			if (view == null) return;
 			fetch(view)
 				.then((response) => {
