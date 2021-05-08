@@ -47,6 +47,8 @@ import 'pinecone-router';
 
 ## Usage
 
+### [Demo](https://pinecone-example-views.vercel.app)
+
 1. Enable views middleware in the router [Settings](https://pinecone-router/router/#settings):
 
 ```js
