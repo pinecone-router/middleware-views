@@ -1,10 +1,11 @@
+import type { Middleware } from 'pinecone-router';
 import { renderContent } from './utils.js';
 
-const PineconeRouterMiddleware = {
+const PineconeRouterMiddleware: Middleware = {
 	/**
 	 * @property {string} version the version of Pinecone Router this middleware is made for.
 	 */
-	version: '0.0.3',
+	version: '1.0.0',
 
 	/**
 	 * @property {string} name the name of the middleware.
@@ -12,16 +13,15 @@ const PineconeRouterMiddleware = {
 	name: 'views',
 
 	/**
-	 * @type {object}
 	 * @summary it hold the views of each route.
 	 * the route being the index and value is its view.
 	 */
-	views: {},
+	views: <{ [key: string]: string }>{},
 
 	/**
-	 * @property {object} settings the middleware settings.
+	 * @property {{[key: string]: string}} settings the middleware settings.
 	 */
-	settings: {
+	settings: <{ [key: string]: any }>{
 		enable: false,
 		basePath: '/',
 		selector: '#app',
@@ -47,10 +47,9 @@ const PineconeRouterMiddleware = {
 	/**
 	 * This will be called at router initialization.
 	 * used for detecting router settings.
-	 * @param {object} component the router's alpine component.
 	 */
 	init(_component, settings) {
-		if (settings?.middlewares?.render) {
+		if (settings.middlewares?.render) {
 			throw new Error(
 				`Pinecone Router ${this.name}: Cannot use views middleware along with render.`
 			);
@@ -59,7 +58,7 @@ const PineconeRouterMiddleware = {
 		//load settings
 		this.settings = {
 			...this.settings,
-			...(settings?.middlewares?.[this.name] ?? {}),
+			...(settings.middlewares[<any>this.name] ?? {}),
 		};
 
 		if (this.settings?.selector == 'body') {
@@ -74,12 +73,9 @@ const PineconeRouterMiddleware = {
 	/**
 	 * Called for each route during initialization,
 	 * before the route is processed & added.
-	 * @param {Element} el the route's <template> element
-	 * @param {object} _component the router's alpine component
-	 * @param {string} path the route's path
 	 */
 	onBeforeRouteProcessed(el, _component, path) {
-		if (this.settings.enable) {
+		if (this.settings!.enable) {
 			// TODO: try to set the view using `href` attribute
 			// to see if Vite detects it and transform the url on build
 			if (el.hasAttribute('x-view') == false) {
@@ -88,12 +84,12 @@ const PineconeRouterMiddleware = {
 				);
 			}
 			let view = el.getAttribute('x-view');
-			if (this.settings.basePath != '/') {
-				view = this.settings.basePath + view;
+			if (this.settings!.basePath != '/') {
+				view = this.settings!.basePath + view;
 			}
 
 			if (path == 'notfound') {
-				this.settings.notfound = view;
+				this.settings!.notfound = view;
 			} else {
 				this.views[path] = view;
 			}
@@ -103,27 +99,24 @@ const PineconeRouterMiddleware = {
 	/**
 	 * Will be called after the handlers are executed and done.
 	 * during navigation inside PineconeRouter.navigate().
-	 * @param {object} route the matched route, undefined if not found.
-	 * @param {string} _path the path visited by the client
-	 * @param {boolean} _firstload first page load and not link navigation request
-	 * @returns {boolean} false to make the navigate function exit (make sure to send the loadEnd event); none to continue execution.
+	 *
 	 */
-	onHandlersExecuted(route, _path, _firstload) {
-		if (this.settings.enable) {
-			let view = !route ? this.settings.notfound : this.views[route.path];
+	onHandlersExecuted(route) {
+		if (this.settings!.enable) {
+			let view = !route ? this.settings!.notfound : this.views[route.path];
 			if (view == null) return;
 			fetch(view)
 				.then((response) => {
 					return response.text();
 				})
 				.then((response) => {
-					renderContent(response, this.settings.selector);
+					renderContent(response, this.settings!.selector);
 					window.dispatchEvent(this.loadEnd);
 					return false;
 				})
 				.catch((error) => {
 					document
-						.querySelector('[x-router][x-data]')
+						.querySelector('[x-router][x-data]')!
 						.dispatchEvent(
 							new CustomEvent('fetch-error', { detail: error })
 						);
@@ -134,7 +127,7 @@ const PineconeRouterMiddleware = {
 		}
 	},
 
-	onBeforeHandlersExecuted(_route, _path, _firstLoad) {
+	onBeforeHandlersExecuted(_route) {
 		window.dispatchEvent(this.loadStart);
 	},
 };

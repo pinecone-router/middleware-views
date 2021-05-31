@@ -3,7 +3,7 @@
 	"description": "Views rendering middleware for Pinecone Router.",
 	"license": "MIT",
 	"author": "Rafik El Hadi Houari",
-	"version": "0.0.3",
+	"version": "1.0.0",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/pinecone-router/middleware-views"
@@ -20,7 +20,7 @@
 		"pushstate"
 	],
 	"source": [
-		"src/index.js"
+		"src/index.ts"
 	],
 	"main": "dist/index.js",
 	"umd:main": "dist/index.umd.js",
@@ -40,6 +40,6 @@
 		"microbundle": "^0.13.0"
 	},
 	"dependencies": {
-		"pinecone-router": "^0.1.1"
+		"pinecone-router": "^1.0.3"
 	}
 }
