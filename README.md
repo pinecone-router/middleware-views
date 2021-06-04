@@ -12,7 +12,7 @@ A views rendering middleware for [Pinecone Router](https://github.com/pinecone-r
 ## About
 
 Views rendering middleware for Pinecone Router.
-It allow you to set a view for each route that will be displayed on a specified element.
+Allows you to set the path for a view and it'll be fetched and rendered in the specified element.
 
 ## Installation
 
@@ -64,7 +64,7 @@ function router() {
 	}
 ```
 
-2. add `x-view` to _each route_ with the value being the path to view.
+2. add `x-view` to the routes with the value being the path to view.
 
 That's it!
 
@@ -98,11 +98,10 @@ function router() {
 
 -   Routes can share views.
 -   View are simply html files, can be text files too.
--   A view is **required** for each route.
 -   You can set the selector in [settings](#settings).
     **leaving it empty will default to '#app'**
 -   You can also handle routes while using views
--   -   **Note**: The routes will be handled _before_ the page is rendered.
+-   -   **Note**: The handlers will be executed _before_ the view is loaded.
 
 ### Settings
 
