@@ -5,12 +5,13 @@ const PineconeRouterMiddleware: Middleware = {
 	/**
 	 * @property {string} version the version of Pinecone Router this middleware is made for.
 	 */
-	version: '1.0.0',
+	version: '1.1.0',
 
 	/**
 	 * @property {string} name the name of the middleware.
+	 * used as key to the middleware settings object.
 	 */
-	name: 'views',
+	name: 'Views',
 
 	/**
 	 * @summary it hold the views of each route.
@@ -58,7 +59,7 @@ const PineconeRouterMiddleware: Middleware = {
 		//load settings
 		this.settings = {
 			...this.settings,
-			...(settings.middlewares[<any>this.name] ?? {}),
+			...(settings.middlewares[this.name.toLowerCase()] ?? {}),
 		};
 
 		if (this.settings?.selector == 'body') {
@@ -76,22 +77,17 @@ const PineconeRouterMiddleware: Middleware = {
 	 */
 	onBeforeRouteProcessed(el, _component, path) {
 		if (this.settings!.enable) {
-			// TODO: try to set the view using `href` attribute
-			// to see if Vite detects it and transform the url on build
-			if (el.hasAttribute('x-view') == false) {
-				throw new Error(
-					`Pinecone Router ${this.name}: route must have an x-view attribute when using x-views.`
-				);
-			}
-			let view = el.getAttribute('x-view');
-			if (this.settings!.basePath != '/') {
-				view = this.settings!.basePath + view;
-			}
+			if (el.hasAttribute('x-view')) {
+				let view = el.getAttribute('x-view');
+				if (this.settings!.basePath != '/') {
+					view = this.settings!.basePath + view;
+				}
 
-			if (path == 'notfound') {
-				this.settings!.notfound = view;
-			} else {
-				this.views[path] = view;
+				if (path == 'notfound') {
+					this.settings!.notfound = view;
+				} else {
+					this.views[path] = view;
+				}
 			}
 		}
 	},
@@ -99,11 +95,10 @@ const PineconeRouterMiddleware: Middleware = {
 	/**
 	 * Will be called after the handlers are executed and done.
 	 * during navigation inside PineconeRouter.navigate().
-	 *
 	 */
 	onHandlersExecuted(route) {
 		if (this.settings!.enable) {
-			let view = !route ? this.settings!.notfound : this.views[route.path];
+			let view: string|null = !route ? this.settings!.notfound : this.views[route.path] ?  this.views[route.path]: null;
 			if (view == null) return;
 			fetch(view)
 				.then((response) => {
