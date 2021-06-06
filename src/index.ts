@@ -5,7 +5,7 @@ const PineconeRouterMiddleware: Middleware = {
 	/**
 	 * @property {string} version the version of Pinecone Router this middleware is made for.
 	 */
-	version: '1.1.0',
+	version: '1.2.0',
 
 	/**
 	 * @property {string} name the name of the middleware.
@@ -97,8 +97,14 @@ const PineconeRouterMiddleware: Middleware = {
 	 * during navigation inside PineconeRouter.navigate().
 	 */
 	onHandlersExecuted(route, _, firstLoad) {
-        // allow SSG
-        if (firstLoad && document.querySelector(this.settings!.selector).innerText.length !== 0) return;
+    // allow SSG
+    if (firstLoad) {
+      let main = document.querySelector(this.settings!.selector)
+      if (main.innerText.length !== 0 && main.getAttribute('x-route') === route.path) {
+        window.dispatchEvent(this.loadEnd);
+        return
+      }
+    }
 		if (this.settings!.enable) {
 			let view: string|null = !route ? this.settings!.notfound : this.views[route.path] ?  this.views[route.path]: null;
 			if (view == null) return;

@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [1.2.0] - 2021-06-06
+
+## Added
+
+-  Focus elements with the `autofocus` attributes on view load.
+-  SSG support by not fetching content in the first load (conditional & non-breaking).
+
 ## [1.1.0] - 2021-06-03
 
 ## Added
