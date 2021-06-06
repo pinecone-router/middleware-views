@@ -96,7 +96,9 @@ const PineconeRouterMiddleware: Middleware = {
 	 * Will be called after the handlers are executed and done.
 	 * during navigation inside PineconeRouter.navigate().
 	 */
-	onHandlersExecuted(route) {
+	onHandlersExecuted(route, _, firstLoad) {
+        // allow SSG
+        if (firstLoad && document.querySelector(this.settings!.selector).innerText.length !== 0) return;
 		if (this.settings!.enable) {
 			let view: string|null = !route ? this.settings!.notfound : this.views[route.path] ?  this.views[route.path]: null;
 			if (view == null) return;
