@@ -4,5 +4,8 @@
  */
 export function renderContent(content: string, selector: string) {
 	// replace the content of the selector with the fetched content
-	document.querySelector(selector)!.innerHTML = content;
+    // @ts-ignore
+	document.querySelector(selector)!.innerText = content;
+    // @ts-ignore
+    document.querySelector('[autofocus]')!.focus()
 }
