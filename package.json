@@ -1,9 +1,9 @@
 {
 	"name": "pinecone-router-middleware-views",
-    "description": "Views middleware for Pinecone Router.",
+	"description": "Views middleware for Pinecone Router.",
 	"license": "MIT",
 	"author": "Rafik El Hadi Houari",
-    "version": "1.2.0",
+	"version": "2.0.0",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/pinecone-router/middleware-views"
@@ -11,35 +11,22 @@
 	"keywords": [
 		"alpinejs",
 		"alpine",
-		"pinecone-router",
+		"alpine.js",
+		"Alpine JS",
+		"Alpine JS Plugin",
+		"Alpine JS Plugins",
 		"router",
-		"routing",
 		"history",
-		"views",
-		"middleware",
 		"pushstate"
 	],
-	"source": [
-		"src/index.ts"
-	],
-	"main": "dist/index.js",
-	"umd:main": "dist/index.umd.js",
-	"module": "dist/index.module.js",
+	"source": "src/index.ts",
+	"main": "dist/views.min.js",
+	"umd:main": "dist/views.min.js",
+	"module": "dist/views.esm.js",
 	"scripts": {
-		"build": "microbundle",
-		"watch": "microbundle watch",
-		"test": "jest"
+		"build": "node scripts/build.js"
 	},
 	"devDependencies": {
-		"@babel/preset-env": "^7.11.0",
-		"@testing-library/dom": "^7.2.2",
-		"@testing-library/jest-dom": "^5.5.0",
-		"alpinejs": "^2.8.2",
-		"jest": "^26.6.3",
-		"jsdom-simulant": "^1.1.2",
-		"microbundle": "^0.13.0"
-	},
-	"dependencies": {
-		"pinecone-router": "^1.0.3"
+		"esbuild": "^0.14.53"
 	}
 }

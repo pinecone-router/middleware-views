@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2022-12-xx
+
+-  Added support for PineconeRouter v2 and Alpine.js v3
 
 ## [1.2.0] - 2021-06-06
 
