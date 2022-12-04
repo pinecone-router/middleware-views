@@ -19,7 +19,7 @@ Allows you to set the path for an HTML file and it'll be fetched and displayed i
 Include the following `<script>` tag in the `<head>` of your document, **before Pinecone Router**:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/pinecone-router-views@2.x.x/dist/views.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pinecone-router-middleware-views@2.x.x/dist/views.min.js"></script>
 ```
 
 or:
