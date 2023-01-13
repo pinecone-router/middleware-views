@@ -1,7 +1,7 @@
 # Views Middleware for Pinecone Router
 
-[![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/pinecone-router/middleware-views?color=%2337C8AB&label=version&sort=semver)](https://github.com/pinecone-router/middleware-views/tree/2.0.0)
-[![npm bundle size](https://img.shields.io/bundlephobia/minzip/pinecone-router-middleware-views?color=37C8AB)](https://bundlephobia.com/result?p=pinecone-router-middleware-views@2.0.0)
+[![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/pinecone-router/middleware-views?color=%2337C8AB&label=version&sort=semver)](https://github.com/pinecone-router/middleware-views/tree/2.0.1)
+[![npm bundle size](https://img.shields.io/bundlephobia/minzip/pinecone-router-middleware-views?color=37C8AB)](https://bundlephobia.com/result?p=pinecone-router-middleware-views@2.0.1)
 [![Downloads from Jsdelivr NPM](https://img.shields.io/jsdelivr/npm/hm/pinecone-router-middleware-views?color=%2337C8AB&&logo=npm)](https://www.jsdelivr.com/package/npm/pinecone-router-middleware-views)
 [![npm](https://img.shields.io/npm/dm/pinecone-router-middleware-views?color=37C8AB&label=npm&logo=npm&logoColor=37C8AB)](https://npmjs.com/package/pinecone-router-middleware-views)
 [![Changelog](https://img.shields.io/badge/change-log-%2337C8AB)](/CHANGELOG.md)
@@ -75,7 +75,7 @@ That's it!
 
 -   You can use both views and handlers in the same route, handlers always run first.
 -   Set the [`viewSelector` option in settings](https://github.com/pinecone-router/router#settings) to change where views will show
--    `window.PineconeRouter.settings.viewsSelector = '#app'`
+-   `window.PineconeRouter.settings.viewsSelector = '#app'`
 -   View are simply html files, can be text files too.
 -   When you [_redirect_](https://github.com/pinecone-router/router#redirecting) from a handler the view wont be displayed.
 -   Views are cached in memory
