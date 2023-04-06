@@ -11,7 +11,7 @@ const PineconeRouterMiddleware = {
 	/**
 	 * @property {string} version the version of this middleware.
 	 */
-	version: '3.0.1',
+	version: '3.0.2',
 	/**
 	 * @property {string} name the name of the middleware.
 	 */
@@ -70,7 +70,7 @@ const PineconeRouterMiddleware = {
 			window.dispatchEvent(window.PineconeRouter.loadEnd)
 			return
 		}
-		views.forEach((view) => {
+		views.forEach(async (view) => {
 			let viewPath = ''
 			if (typeof view == 'string') {
 				viewPath = view
@@ -80,7 +80,7 @@ const PineconeRouterMiddleware = {
 				return
 			}
 
-			fetch(viewPath)
+			await fetch(viewPath)
 				.then((response) => {
 					return response.text()
 				})
