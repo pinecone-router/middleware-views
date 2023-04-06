@@ -37,8 +37,14 @@ npm install pinecone-router-middleware-views
 ```javascript
 // load this middleware
 import 'pinecone-router-middleware-views'
-// then load pinecone router
-import 'pinecone-router'
+// load pinecone router
+import PineconeRouter from 'pinecone-router';
+// then load alpine.js
+import Alpine from 'alpinejs';
+// add the router as a plugin
+Alpine.plugin(PineconeRouter)
+// start alpine
+Alpine.start()
 ```
 
 > **Important**: This must be added **before** loading Pinecone Router.
