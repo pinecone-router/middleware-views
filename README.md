@@ -121,6 +121,8 @@ In the example above:
 -   `/authWrapper.html` will be shown in the default target which `#app` or [whatever is default in settings](https://github.com/pinecone-router/router#settings) in the `viewSelector` property.
 -   `/login.html` will be shown inside element with the selector `#content` which inside inside `/authWrapper.html`
 
+> You can have more than 2 views just make sure to keep in mind that they're fetched and shown *in order*.
+
 > View Compositon Feature was suggested by [@klausklapper](https://github.com/klausklapper)
 
 ## Events:
