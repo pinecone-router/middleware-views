@@ -11,7 +11,7 @@ const PineconeRouterMiddleware = {
 	/**
 	 * @property {string} version the version of this middleware.
 	 */
-	version: '3.0.0',
+	version: '3.0.1',
 	/**
 	 * @property {string} name the name of the middleware.
 	 */
@@ -93,15 +93,14 @@ const PineconeRouterMiddleware = {
 					window.dispatchEvent(window.PineconeRouter.loadEnd)
 				})
 				.catch((error) => {
-					document
-						.querySelector(
-							view.selector ??
-								window.PineconeRouter.settings.viewSelector ??
-								'#app'
-						)!
-						.dispatchEvent(
+					const el = document.querySelector(
+						window.PineconeRouter.settings.viewSelector ?? '#app'
+					)
+					if (el) {
+						el.dispatchEvent(
 							new CustomEvent('fetch-error', { detail: error })
 						)
+					}
 					console.error(`Pinecone Router: Fetch Error: ${error}`)
 				})
 		})
