@@ -5,24 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [3.0.0] - 2023-04-06
+
+-   Added support for multiple views per route using an array (View Composition).
+-   Removed caching views in memory, let the browser handle that.
 
 ## [2.0.0] - 2022-12-04
 
--  Added support for PineconeRouter v2 and Alpine.js v3
+-   Added support for PineconeRouter v2 and Alpine.js v3
 
 ## [1.2.0] - 2021-06-06
 
 ## Added
 
--  Focus elements with the `autofocus` attributes on view load.
--  SSG support by not fetching content in the first load (conditional & non-breaking).
+-   Focus elements with the `autofocus` attributes on view load.
+-   SSG support by not fetching content in the first load (conditional & non-breaking).
 
 ## [1.1.0] - 2021-06-03
 
 ## Added
 
--  Allow routes with no views
+-   Allow routes with no views
 
 ## [1.0.0] - 2021-05-31
 

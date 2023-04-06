@@ -1,7 +1,7 @@
 # Views Middleware for Pinecone Router
 
-[![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/pinecone-router/middleware-views?color=%2337C8AB&label=version&sort=semver)](https://github.com/pinecone-router/middleware-views/tree/2.0.1)
-[![npm bundle size](https://img.shields.io/bundlephobia/minzip/pinecone-router-middleware-views?color=37C8AB)](https://bundlephobia.com/result?p=pinecone-router-middleware-views@2.0.1)
+[![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/pinecone-router/middleware-views?color=%2337C8AB&label=version&sort=semver)](https://github.com/pinecone-router/middleware-views/tree/3.0.0)
+[![npm bundle size](https://img.shields.io/bundlephobia/minzip/pinecone-router-middleware-views?color=37C8AB)](https://bundlephobia.com/result?p=pinecone-router-middleware-views@3.0.0)
 [![Downloads from Jsdelivr NPM](https://img.shields.io/jsdelivr/npm/hm/pinecone-router-middleware-views?color=%2337C8AB&&logo=npm)](https://www.jsdelivr.com/package/npm/pinecone-router-middleware-views)
 [![npm](https://img.shields.io/npm/dm/pinecone-router-middleware-views?color=37C8AB&label=npm&logo=npm&logoColor=37C8AB)](https://npmjs.com/package/pinecone-router-middleware-views)
 [![Changelog](https://img.shields.io/badge/change-log-%2337C8AB)](/CHANGELOG.md)
@@ -10,7 +10,7 @@ A views middleware for [Pinecone Router](https://github.com/pinecone-router/rout
 
 ## About
 
-Allows you to set the path for an HTML file and it'll be fetched and displayed in the specified element (`#app` by default).
+Allows you to set the path for an HTML file (or multiple) and it'll be fetched and displayed inside the specified elements (`#app` by default).
 
 ## Installation
 
@@ -19,13 +19,13 @@ Allows you to set the path for an HTML file and it'll be fetched and displayed i
 Include the following `<script>` tag in the `<head>` of your document, **before Pinecone Router**:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/pinecone-router-middleware-views@2.x.x/dist/views.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pinecone-router-middleware-views@3.x.x/dist/views.min.js"></script>
 ```
 
 or:
 
 ```javascript
-import 'https://cdn.jsdelivr.net/npm/pinecone-router-middleware-views@2.x.x/dist/views.min.js'
+import 'https://cdn.jsdelivr.net/npm/pinecone-router-middleware-views@3.x.x/dist/views.min.js'
 ```
 
 ### NPM
@@ -74,23 +74,60 @@ That's it!
 **Notes:**
 
 -   You can use both views and handlers in the same route, handlers always run first.
--   Set the [`viewSelector` option in settings](https://github.com/pinecone-router/router#settings) to change where views will show
+-   Set the [`viewSelector` option in settings](https://github.com/pinecone-router/router#settings) to change where views will be shown by default. ([can be overwritten on a per-route basis](###multiple-views-per-route))
 -   `window.PineconeRouter.settings.viewsSelector = '#app'`
 -   View are simply html files, can be text files too.
 -   When you [_redirect_](https://github.com/pinecone-router/router#redirecting) from a handler the view wont be displayed.
--   Views are cached in memory
+
+### View composition
+
+You can have **multiple views per route**, and set the target for them individually:
+
+`index.html`
+
+```html
+<template
+	x-route="/login"
+	x-view="['/authWrapper.html', {path:'/login.html', selector: '#content'}]"
+></template>
+```
+
+`authWrapper.html`:
+
+```html
+<div>
+	<h1>Authenticate</h1>
+	<div id="content"></div>
+</div>
+```
+
+`login.html`:
+
+```html
+<div>
+	<h2>Login</h2>
+	...
+</div>
+```
+
+In the example above:
+
+-   `/authWrapper.html` will be shown in the default target which `#app` or [whatever is default in settings](https://github.com/pinecone-router/router#settings) in the `viewSelector` property.
+-   `/login.html` will be shown inside element with the selector `#content` which inside inside `/authWrapper.html`
+
+> View Compositon Feature was suggested by [@klausklapper](https://github.com/klausklapper)
 
 ## Events:
 
 This middleware dispatch these events:
 
-| name               | recipient | when is it dispatched       |
-| ------------------ | --------- | --------------------------- |
-| **pinecone-start** | window    | when the page start loading |
-| **pinecone-end**   | window    | when the page loading ends  |
-| **fetch-error**    | #app      | when the fetch fail         |
+| name               | recipient                      | when is it dispatched       |
+| ------------------ | ------------------------------ | --------------------------- |
+| **pinecone-start** | window                         | when the page start loading |
+| **pinecone-end**   | window                         | when the page loading ends  |
+| **fetch-error**    | #app or your specific selector | when the fetch fail         |
 
-The first two can be used to show a loading bar or indicator
+The first two events can be used to show a loading bar or indicator
 
 ### Loading bar Example:
 
@@ -110,7 +147,8 @@ window.addEventListener('pinecone-end', () => nProgress.done())
 
 | Version | Pinecone Router Versions |
 | ------- | ------------------------ |
-| 2.x.x   | ^2.0.0                   |
+| 3.x.x   | ^3.x.x                   |
+| 2.x.x   | 2.x.x                    |
 | 1.x.x   | ^1.0.0                   |
 
 ## Contributing:

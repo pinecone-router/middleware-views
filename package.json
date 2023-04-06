@@ -1,31 +1,31 @@
 {
-    "name": "pinecone-router-middleware-views",
-    "description": "Views middleware for Pinecone Router.",
-    "license": "MIT",
-    "author": "Rafik El Hadi Houari",
-    "version": "2.0.1",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/pinecone-router/middleware-views"
-    },
-    "keywords": [
-        "alpinejs",
-        "alpine",
-        "alpine.js",
-        "Alpine JS",
-        "Alpine JS Plugin",
-        "Alpine JS Plugins",
-        "router",
-        "history",
-        "pushstate"
-    ],
-    "source": "src/index.ts",
-    "main": "dist/views.min.js",
-    "umd:main": "dist/views.min.js",
-    "scripts": {
-        "build": "node scripts/build.js"
-    },
-    "devDependencies": {
-        "esbuild": "^0.14.53"
-    }
+	"name": "pinecone-router-middleware-views",
+	"description": "Views middleware for Pinecone Router.",
+	"license": "MIT",
+	"author": "Rafik El Hadi Houari",
+	"version": "3.0.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/pinecone-router/middleware-views"
+	},
+	"keywords": [
+		"alpinejs",
+		"alpine",
+		"alpine.js",
+		"Alpine JS",
+		"Alpine JS Plugin",
+		"Alpine JS Plugins",
+		"router",
+		"history",
+		"pushstate"
+	],
+	"source": "src/index.ts",
+	"main": "dist/views.min.js",
+	"umd:main": "dist/views.min.js",
+	"scripts": {
+		"build": "node scripts/build.js"
+	},
+	"devDependencies": {
+		"esbuild": "^0.14.53"
+	}
 }
