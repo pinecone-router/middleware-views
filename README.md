@@ -123,7 +123,7 @@ In the example above:
 
 > You can have more than 2 views just make sure to keep in mind that they're fetched and shown *in order*.
 
-> View Compositon Feature was suggested by [@klausklapper](https://github.com/klausklapper)
+> View Compositon feature was suggested by [@klausklapper](https://github.com/klausklapper)
 
 ## Events:
 
