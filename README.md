@@ -57,7 +57,7 @@ Add `x-view` to the routes with the value being the path to file.
 
 That's it!
 
-**example:**
+**example**:
 
 ```html
 <div x-data>
@@ -77,7 +77,7 @@ That's it!
 <div>hello, <span x-text="$router.params.name"></span></div>
 ```
 
-**Notes:**
+**Notes**:
 
 -   You can use both views and handlers in the same route, handlers always run first.
 -   Set the [`viewSelector` option in settings](https://github.com/pinecone-router/router#settings) to change where views will be shown by default. ([can be overwritten on a per-route basis](###multiple-views-per-route))
@@ -88,8 +88,7 @@ That's it!
 ### View composition
 
 You can have **multiple views per route**, and set the target for them individually:
-
-`index.html`
+**index.html**
 
 ```html
 <template
@@ -98,7 +97,7 @@ You can have **multiple views per route**, and set the target for them individua
 ></template>
 ```
 
-`authWrapper.html`:
+**authWrapper.html**:
 
 ```html
 <div>
@@ -107,7 +106,7 @@ You can have **multiple views per route**, and set the target for them individua
 </div>
 ```
 
-`login.html`:
+**login.html**:
 
 ```html
 <div>
@@ -121,7 +120,9 @@ In the example above:
 -   `/authWrapper.html` will be shown in the default target which is `#app` or [whatever is default in the settings](https://github.com/pinecone-router/router#settings) using the `viewSelector` property.
 -   `/login.html` will be shown inside the element with the selector `#content` which is inside `/authWrapper.html`
 
-> You can have more than 2 views just make sure to keep in mind that they're fetched and shown *in order*.
+You can say in this case authWrapper is used as a **layout**.
+
+> You can have more than 2 views and layouts just make sure to keep in mind that they're fetched and shown *in order*.
 
 > View Compositon feature was suggested [@klausklapper](https://github.com/klausklapper)
 
