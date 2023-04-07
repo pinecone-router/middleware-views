@@ -118,12 +118,12 @@ You can have **multiple views per route**, and set the target for them individua
 
 In the example above:
 
--   `/authWrapper.html` will be shown in the default target which `#app` or [whatever is default in settings](https://github.com/pinecone-router/router#settings) in the `viewSelector` property.
--   `/login.html` will be shown inside the element with the selector `#content` which is inside inside `/authWrapper.html`
+-   `/authWrapper.html` will be shown in the default target which is `#app` or [whatever is default in the settings](https://github.com/pinecone-router/router#settings) using the `viewSelector` property.
+-   `/login.html` will be shown inside the element with the selector `#content` which is inside `/authWrapper.html`
 
 > You can have more than 2 views just make sure to keep in mind that they're fetched and shown *in order*.
 
-> View Compositon feature was suggested by [@klausklapper](https://github.com/klausklapper)
+> View Compositon feature was suggested [@klausklapper](https://github.com/klausklapper)
 
 ## Events:
 
