@@ -64,8 +64,8 @@ const PineconeRouterMiddleware = {
 		let views: any[] = !route
 			? window.PineconeRouter.notfound.view
 			: route.view
-				? route.view
-				: ''
+		        ? route.view
+			: ''
 		if (!views) {
 			window.dispatchEvent(window.PineconeRouter.loadEnd)
 			return
@@ -81,8 +81,8 @@ const PineconeRouterMiddleware = {
 			}
 
 			const response = await fetch(viewPath);
-			const contet = await response.text();
-			return { selector: view.selector, content: contet }
+			const content = await response.text();
+			return { selector: view.selector, content: content }
 
 		})).then(responses => {
 			responses.forEach(response => {
