@@ -64,13 +64,13 @@ const PineconeRouterMiddleware = {
 		let views: any[] = !route
 			? window.PineconeRouter.notfound.view
 			: route.view
-			? route.view
+		        ? route.view
 			: ''
 		if (!views) {
 			window.dispatchEvent(window.PineconeRouter.loadEnd)
 			return
 		}
-		views.forEach(async (view) => {
+		Promise.all(views.map(async view => {
 			let viewPath = ''
 			if (typeof view == 'string') {
 				viewPath = view
@@ -80,30 +80,33 @@ const PineconeRouterMiddleware = {
 				return
 			}
 
-			await fetch(viewPath)
-				.then((response) => {
-					return response.text()
-				})
-				.then((response) => {
-					if (view.selector) {
-						renderContent(response, view.selector)
-					} else {
-						renderContent(response)
-					}
-					window.dispatchEvent(window.PineconeRouter.loadEnd)
-				})
-				.catch((error) => {
-					const el = document.querySelector(
-						window.PineconeRouter.settings.viewSelector ?? '#app'
-					)
-					if (el) {
-						el.dispatchEvent(
-							new CustomEvent('fetch-error', { detail: error })
-						)
-					}
-					console.error(`Pinecone Router: Fetch Error: ${error}`)
-				})
-		})
+			const response = await fetch(viewPath);
+			const content = await response.text();
+			return { selector: view.selector, content: content }
+
+		})).then(responses => {
+			responses.forEach(response => {
+				if (response === undefined) return;
+				if (response.selector) {
+					renderContent(response.content, response.selector)
+				} else {
+					renderContent(response.content)
+				}
+			})
+		}
+		).catch((error) => {
+			const el = document.querySelector(
+				window.PineconeRouter.settings.viewSelector ?? '#app'
+			)
+			if (el) {
+				el.dispatchEvent(
+					new CustomEvent('fetch-error', { detail: error })
+				)
+			}
+			console.error(`Pinecone Router: Fetch Error: ${error}`)
+		}).finally(() => {
+			window.dispatchEvent(window.PineconeRouter.loadEnd)
+		});
 	},
 }
 
