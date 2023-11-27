@@ -10,6 +10,10 @@ A views middleware for [Pinecone Router](https://github.com/pinecone-router/rout
 
 ## About
 
+> ### As of PineconeRouter v4 this middleware was replaced by the [`x-templates`](https://github.com/pinecone-router/router/tree/main#x-template) feature that is now built-in.
+
+**This will only work with PineconeRouter v3**
+
 Allows you to set the path for an HTML file (or multiple) and it'll be fetched and displayed inside the specified elements (`#app` by default).
 
 ## Installation
